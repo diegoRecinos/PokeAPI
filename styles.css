@@ -9,3 +9,11 @@ body {
 .pokemon img {
     margin-right: 20px;
 }
+
+pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
