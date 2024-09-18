@@ -1,0 +1,11 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.pokemon {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.pokemon img {
+    margin-right: 20px;
+}
