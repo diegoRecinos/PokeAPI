@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokémon Search and Info</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+      margin-right: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .pokemon {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .pokemon img {
+      margin-right: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Search for a Pokémon</h1>
+  
+  <!-- Search Bar -->
+  <input type="text" id="pokemon-name" placeholder="Enter Pokémon name">
+  <button onclick="searchPokemon()">Search</button>
+
+  <!-- Pokémon Data Output -->
+  <div id="pokemon-data"></div>
+
+  <script>
+    // Function to fetch Pokémon data
+    async function fetchPokemon(pokemonName) {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
+      if (!response.ok) {
+        document.getElementById('pokemon-data').innerHTML = "Pokémon not found!";
+        return;
+      }
+      const pokemon = await response.json();
+      displayPokemon(pokemon);
+    }
+
+    // Function to display Pokémon data
+    function displayPokemon(pokemon) {
+      const pokemonDataDiv = document.getElementById('pokemon-data');
+      pokemonDataDiv.innerHTML = `
+        <div class="pokemon">
+          <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}" />
+          <div>
+            <h2>${pokemon.name}</h2>
+            <p><strong>Height:</strong> ${pokemon.height} decimeters</p>
+            <p><strong>Weight:</strong> ${pokemon.weight} hectograms</p>
+            <p><strong>Base Experience:</strong> ${pokemon.base_experience}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // Function to handle search input and fetch the Pokémon data
+    function searchPokemon() {
+      const pokemonName = document.getElementById('pokemon-name').value;
+      if (pokemonName) {
+        fetchPokemon(pokemonName);  // Fetch and display data for the entered Pokémon
+      } else {
+        document.getElementById('pokemon-data').innerHTML = "Please enter a Pokémon name.";
+      }
+    }
+  </script>
+
+</body>
+</html>

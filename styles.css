@@ -16,4 +16,33 @@ pre {
     border-radius: 5px;
     max-height: 400px;
     overflow-y: auto;
-  }
+}
+
+/* Existing styles */
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    width: 250px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#pokemonData {
+    margin-top: 20px;
+}
+
+#pokemonImage {
+    display: block;
+    margin-bottom: 20px;
+}
+
+#pokemonDetails p {
+    font-size: 18px;
+    margin: 5px 0;
+}

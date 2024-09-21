@@ -1,5 +1,7 @@
 
+
 // Function to fetch Pokémon data
+
 async function fetchPokemon(pokemonName) {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
   if (!response.ok) {
@@ -10,7 +12,10 @@ async function fetchPokemon(pokemonName) {
   displayPokemon(pokemon);
 }
 
+//not working
+
 // Function to display Pokémon data
+/*
 function displayPokemon(pokemon) {
   const pokemonDataDiv = document.getElementById('pokemon-data');
   pokemonDataDiv.innerHTML = `
@@ -25,9 +30,10 @@ function displayPokemon(pokemon) {
     </div>
   `;
 }
+*/
 
 // Fetch and display data for Pikachu
-fetchPokemon('pikachu');
+//fetchPokemon(pokemonName);
 
 
 //Fetch Function: The fetchPokemon() function makes an HTTP GET request to https://pokeapi.co/api/v2/pokemon/{pokemonName}.
@@ -56,6 +62,8 @@ fetch('https://pokeapi.co/api/v2/pokemon/pikachu')
       }
     }
 
+
+
     // Display the JSON data on the page
 function displayJSON(jsonData) {
     const jsonOutput = document.getElementById('json-output');
@@ -63,5 +71,34 @@ function displayJSON(jsonData) {
       // The second parameter (2) is for formatting the JSON with indentation
 }
 
+// Function to handle search input
+function searchPokemon() {
+    const pokemonName = document.getElementById('pokemon-name').value;
+    if (pokemonName) {
+        fetchPokemonData(pokemonName);  // Call the fetch function with the Pokémon name
+    } else {
+        document.getElementById('json-output').innerHTML = "Please enter a Pokémon name.";
+    }
+}
+
 // Fetch and display data for Pikachu
-fetchPokemonData('pikachu');
+fetchPokemonData(pokemonName);
+
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const pokemonName = document.getElementById('pokemonName').value.toLowerCase();
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('pokemonImage').src = data.sprites.front_default;
+            document.getElementById('pokemonNameDisplay').textContent = `Name: ${data.name}`;
+            document.getElementById('pokemonHeight').textContent = `Height: ${data.height}`;
+            document.getElementById('pokemonWeight').textContent = `Weight: ${data.weight}`;
+            document.getElementById('pokemonBaseExperience').textContent = `Base Experience: ${data.base_experience}`;
+            document.getElementById('pokemonJson').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            document.getElementById('pokemonJson').textContent = 'Pokemon not found';
+        });
+});
